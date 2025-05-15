@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+/* 共通部分設定 */
+body {
+    font: #333;
+    text-align: center;
+}
+
+input::placeholder {
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    border:1px solid #333;
+    border-radius: 10PX;
+}
+
+.main2 {
+    margin: auto;
+}
+
+.subtitle {
+    font-size: 15px;
+    padding: 30px 0 0;
+}
+
+input {
+    margin: 10px;
+}
+
+.toukou {
+    margin: auto 10px;
+    /* padding-left: 10px;
+    text-align: left; */
+    /* border: .5rem solid #333; 枠の大きさ見るため */
+}
+.myself {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.others {
+    padding-left: 10px;
+    text-align: left;
+}
+
+/* 投稿を囲む枠 */
+.mutter {
+    max-width: 60%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+  }
+  
+  /* ログインユーザーの投稿（右側） */
+  .my-post {
+    background-color: #dfdfdf;
+    margin-left: auto;
+    text-align: right;
+  }
+  
+  /* 他ユーザーの投稿（左側） */
+  .other-post {
+    background-color: #dfdfdf;
+    margin-right: auto;
+    text-align: left;
+  }
+  
+/* Google Fonts */
+body {
+    font-family: "Zen Maru Gothic", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+body {
+font-family: sans-serif;
+}
+
+#login-button {
+cursor: pointer;
+color: blue;
+text-decoration: underline;
+position: relative;
+}
+
+#login-popup {
+display: none;
+position: absolute;
+top: 30px;
+left: 0;
+padding: 20px;
+border: 1px solid #ccc;
+background-color: white;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+width: 200px;
+border-radius: 8px;
+}
+
+#login-popup input {
+display: block;
+width: 100%;
+margin-bottom: 10px;
+padding: 5px;
+}
+
+/* コンテナで囲って離れたら閉じる */
+.popup-container {
+display: inline-block;
+position: relative;
+}
+
+.sub-area {
+        background-color: #FF8B20;
+    }
