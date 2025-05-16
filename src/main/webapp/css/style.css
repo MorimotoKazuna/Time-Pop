@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 /* 共通部分設定 */
+body, html {
+    margin: 0;
+    padding: 0;
+}
 body {
     font: #333;
     text-align: center;
@@ -79,7 +83,8 @@ body {
     font-weight: 400;
     font-style: normal;
   }
-  
+
+/* ポップアップウィンド表示 */
 body {
 font-family: sans-serif;
 }
@@ -112,12 +117,113 @@ margin-bottom: 10px;
 padding: 5px;
 }
 
+/* 年月日時間の表示方法 */
+.tobig {
+    font-size: 3.0em; /* 数字を大きく */
+    font-weight: bold;
+}
+.big {
+    font-size: 1.8em; /* 数字を大きく */
+    font-weight: bold;
+}
+.small {
+    font-size: 1.0em; /* 年・月・日などの文字を小さく */
+    vertical-align: baseline;
+}
+
+/* ポップアップ時のボタン背景色の変更 　メイン画面ログインボタン */
+.my-confirm-btn,.my-cancel-btn,.header-btn{
+  background-color: #fff;
+  color:  #FF8B20;
+  border: solid #FF8B20;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+
 /* コンテナで囲って離れたら閉じる */
 .popup-container {
 display: inline-block;
 position: relative;
 }
+/* 現在時刻の表示 */
+#clock {
+    background-color: #222;
+    color: #fff;
+    font-size: x-large;
+    margin-bottom:10px
+}
+/* 出退勤ボタン*/
+.inbtn {
+    background-color: #FF8B20;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 80px;
+    padding: 0.5em 1em 0.5em 1.5em;      /* ボタン内の余白 */
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: x-large;
+    margin: auto 20px;
+    letter-spacing: 0.5em;
+}
+.outbtn {
+    background-color: #41dd87;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 80px;
+    padding: 0.5em 1em 0.5em 1.5em;      /* ボタン内の余白 */
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: x-large;
+    margin: auto 20px;
+    letter-spacing: 0.5em;
+}
 
-.sub-area {
-        background-color: #FF8B20;
-    }
+.register-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* ヘッダー */
+header {
+    height: 4.0em;
+    display: flex;
+    justify-content: center;    /* 左右中央揃え */
+    align-items: center;        /* 上下中央揃え */
+    background-color: #fff;
+}
+.head-into p {
+    width: 200PX;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #41dd87;
+    color: #FFF;
+    font-weight: bold;
+    font-size: x-large;
+}
+.head-into {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+body {
+    background-color: #FF8B20;
+} 
+.now-date {
+    width: 250px;
+    height: auto;
+    background-color: #FF8820;
+    color: #ffffff;
+    border: solid #ffffff;
+}
+
+/* テーブル */
+table {
+    background: ;
+}

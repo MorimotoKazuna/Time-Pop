@@ -5,19 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Pop メイン</title>
     <!-- CSS読み込み -->
+     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Noto+Sans+JP:wght@100..900&family=Zen+Kaku+Gothic+Antique&family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
     <!-- CDN 読み込み -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/script.js" defer></script>
 </head>
 <body>
-    <div calss="sub-area">
-        <p>2025年5月15日</p>
-        <input type="button" value="月報出力">
-        <button onclick="showLogin()">ログイン</button>
+    <header>
+        <div class="head-into">
+            <p>ロゴ</p>
+        </div>
+        <div class="head-into">
+            <input type="button" value="月報出力" class="header-btn">
+            <button onclick="showLogin()" class="header-btn">ログイン</button>
+        </div>
+    </header>
+    <div class="sub-area">
+        <p id="datetime"></p>
+
     </div>
     <main>
-		
+        <div class="member">
+            <table>
+                <tr>
+                    <th>利用者番号</th>
+                    <th>名前</th>
+                    <th>出勤</th>
+                    <th>退勤</th>
+                </tr>
+
+            <!-- ▼データベースから情報を取ってきて、利用者番号昇順で表示 -->
+                <tr>
+                    <td>A</td>
+                    <td><button onclick="showWork()">利用者B</button></td>
+                    <td>c</td>
+                    <td>d</td>
+                </tr>
+            <!-- ▲ここまで -->
+            </table>
+        </div>
+
     </main>
 </body>
 </html>
