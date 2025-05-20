@@ -20,9 +20,9 @@
 	</div>
 	<div class="main2">
 		<form action="Login" method="post">
-		<input type="text" name="name" placeholder="ログインID"><br>
-		<input type="text" name="pass" placeholder="パスワード"><br>
-		<input type="submit" value="ログイン">
+			<input type="text" name="email" placeholder="メールアドレス"><br>
+			<input type="text" name="password" placeholder="パスワード"><br>
+			<input type="submit" value="ログイン">
 		</form>
 	</div>
 </div>

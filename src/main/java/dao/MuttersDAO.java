@@ -13,9 +13,9 @@ import model.Mutter;
 public class MuttersDAO {
 	
 	// DB保存先・ユーザー名・パスワードを定数に格納
-	private final String JDBC_URL = "jdbc:h2:~/dokoTsubu";
+	private final String JDBC_URL = "jdbc:h2:./time-pop";
 	private final String DB_USER = "sa";
-	private final String DB_PASS = "";
+	private final String DB_PASS = "1234";
 	
 	public List<Mutter> findAll() {
 		List<Mutter> mutterList = new ArrayList<>();
