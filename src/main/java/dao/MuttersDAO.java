@@ -13,7 +13,7 @@ import model.Mutter;
 public class MuttersDAO {
 	
 	// DB保存先・ユーザー名・パスワードを定数に格納
-	private final String JDBC_URL = "jdbc:h2:./time-pop";
+	private final String JDBC_URL = "jdbc:h2:/C:\\Users\\1Java24\\Desktop\\サーブレット＆JSP\\TimePop";
 	private final String DB_USER = "sa";
 	private final String DB_PASS = "1234";
 	

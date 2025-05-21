@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import dao.UserDAO;
 import model.LoginLogic;
 import model.User;
 
@@ -21,24 +22,30 @@ public class Login extends HttpServlet {
 	// ブラウザからログイン情報の取得
 		// リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
+		// ログイン画面で入力された値の取得
 		String email = request.getParameter("email").trim();
 		String password = request.getParameter("password").trim();
 
-		// 入力された情報からUserインスタンスの作成
-		User inputUser = new User(0, null, email, password, null);
-
+		// Userインスタンス（ユーザー情報）の生成
+		UserDAO dao = new UserDAO();
+		
+		User user = new User(email, password);
+		
 		// ログイン処理
-		LoginLogic loginLogic = new LoginLogic();
-		User dbUser = loginLogic.execute(inputUser);
-
-		if (dbUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", dbUser); // dbUserに変更してもOK
+		LoginLogic loginlogic = new LoginLogic();
+		boolean isLogic = loginlogic.execute(user);		// loginlogicはLoginLogicを基にインスタンス化し、LoginLogicのexecuteメソッドを用いてboolean判定し、isLogicへTrueかFalseで代入する
+		
+		// ログイン成功時の処理 isLogic = True
+		if (isLogic) {
+			// ユーザー情報をセッションスコープに保存
+			
+			HttpSession session = request.getSession();		// スコープの設置
+			session.setAttribute("loginUser", user);		// スコープにuserインスタンス(emailとpassを持ってる)を保存
 		}
-
-		// 結果画面にフォワード
+		
+		// ログイン結果画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginResult.jsp");
-		dispatcher.forward(request, response);
-	}
+		dispatcher.forward(request,response);
+	}	
+
 }
-//<%= loginUser.getName() %>
