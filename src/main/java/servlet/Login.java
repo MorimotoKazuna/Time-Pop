@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import dao.UserDAO;
 import model.LoginLogic;
 import model.User;
 
@@ -26,6 +27,11 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password").trim();
 
 		// Userインスタンス（ユーザー情報）の生成
+<<<<<<< HEAD
+=======
+		UserDAO dao = new UserDAO();
+		
+>>>>>>> edd41d76151352b9c6dfbb90dd76c66565fc9476
 		User user = new User(email, password);
 		
 		// ログイン処理

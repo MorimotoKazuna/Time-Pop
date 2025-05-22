@@ -9,7 +9,10 @@ public class User implements Serializable {
 	private String email;	// メールアドレス
 	private String password;	// パスワード
 	private String role;
+<<<<<<< HEAD
 	private String nameFurigana;
+=======
+>>>>>>> edd41d76151352b9c6dfbb90dd76c66565fc9476
 	
 	public User() {}
 	
@@ -21,6 +24,7 @@ public class User implements Serializable {
 		this.role = role;
 	}
 	
+<<<<<<< HEAD
 	// user登録用 not admin
 	public User(int id, String name, String nameFurigana) {
 		this.id = id;
@@ -39,13 +43,28 @@ public class User implements Serializable {
 		this.email = email;
 	}
 	
+=======
+	// ログイン用コンストラクタ A
+//	public User(String email, String password) {
+//		this.email = email;
+//		this.password = password;
+//	}
+	// ログイン用コンストラクタ B
+	public User(String email) {
+		this.email = email;
+	}
+	
+>>>>>>> edd41d76151352b9c6dfbb90dd76c66565fc9476
 	
 	public int getId() {return id;}
 	public String getName() {return name;}
 	public String getEmail() { return email; }
 	public String getPassword() { return password; }
 	public String getRole() {return role;}
+<<<<<<< HEAD
 	public String getNameFurigana() {return nameFurigana;}
+=======
+>>>>>>> edd41d76151352b9c6dfbb90dd76c66565fc9476
 	
 	@Override
     public boolean equals(Object obj) {

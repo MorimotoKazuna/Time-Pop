@@ -4,6 +4,7 @@ import dao.UserDAO;
 
 public class LoginLogic {
 	public boolean execute(User user) {
+<<<<<<< HEAD
 		
 		// DAOを使って、DBに登録されているユーザーと照合
 		 UserDAO dao = new UserDAO();
@@ -20,6 +21,20 @@ public class LoginLogic {
 
 	}
 
+=======
+		if (user == null) {
+			return false;
+		}
+
+		// DAOを使って、DBに登録されているユーザーと照合
+		UserDAO dao = new UserDAO();
+		User dbUser = dao.findUserByEmailAndPass(user.getEmail(), user.getPassword());
+
+		// ユーザーが見つかればログイン成功
+		return dbUser != null;
+	}
+}
+>>>>>>> edd41d76151352b9c6dfbb90dd76c66565fc9476
 
 //	return false;
 //UserDAO dao = new UserDAO();

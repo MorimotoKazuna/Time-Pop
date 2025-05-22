@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,6 +39,12 @@ public class Main {
     		e.printStackTrace();
 //    		return null;
     	}
+=======
+import dao.UserDAO;
+
+public class Main {
+    public static void main(String[] args) {
+>>>>>>> edd41d76151352b9c6dfbb90dd76c66565fc9476
 //        UserDAO userDAO = new UserDAO();
 
 //        // コンストラクタ
@@ -56,6 +63,7 @@ public class Main {
 //        }
     	UserDAO dao = new UserDAO();
         dao.findAllUser();
+<<<<<<< HEAD
 //        String inputEmail = "admin@example";
 //        String inputPassword = "0000";
         User user = new User("admin@example", "0000");
@@ -63,5 +71,7 @@ public class Main {
 		LoginLogic loginlogic = new LoginLogic();
 		boolean isLogic = loginlogic.execute(user);	
         System.out.println(isLogic);
+=======
+>>>>>>> edd41d76151352b9c6dfbb90dd76c66565fc9476
     }
 }
