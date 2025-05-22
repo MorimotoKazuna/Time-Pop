@@ -61,6 +61,58 @@ Swal.fire({
 });
 }
 
+function registerUser() {
+Swal.fire({
+    title: '利用者登録',
+    html:
+    	'<div class="register-action">' +
+            '<form action="RegisterUserServlet" method="post" onsubmit="setPressedTime()">' +
+            '  ID: <input type="text" name="id"><br>' +
+            ' 名前: <input type="text" name="name"><br>' +
+                '名前（ふりがな）: <input type="text" name="nameFurigana"><br>' +
+                '<input type="hidden" name="createdAt" id="createdAt">' +
+                '<input type="submit" value="登録">' +
+            '</form>' +
+        '</div>' ,
+
+    showCancelButton: true,
+    confirmButtonText: '登録',
+    cancelButtonText: '閉じる',  // ★バツの画像を右上に貼り付けで対応した方がいいかも
+    allowOutsideClick: false,   // ← 背景クリックで閉じない
+    allowEscapeKey: false,      // ← Escキーで閉じない
+    customClass: {
+    confirmButton: 'my-confirm-btn',
+    cancelButton: 'my-cancel-btn'
+    },
+    buttonsStyling: false, // ← SweetAlert2のデフォルトボタンスタイルを無効にする
+ didOpen: () => {
+      // ▼ 時計を更新する関数
+      function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('clock').textContent = `現在時刻: ${h}時${m}分${s}秒`;
+      }
+      updateClock();  // 即時実行
+      // 1秒ごとに時計を更新
+      const intervalId = setInterval(updateClock, 1000);
+
+      // モーダルが閉じられたら時計の更新を止める
+      Swal.getPopup().addEventListener('remove', () => clearInterval(intervalId));
+    }
+    // preConfirm: () => {
+    // const username = document.getElementById('username').value;
+    // const password = document.getElementById('password').value;
+    // return { username, password };
+    // }
+// }).then((result) => {
+//     if (result.isConfirmed) {
+//     console.log('ログイン情報:', result.value);
+//     }
+});
+}
+
 // ▼ main.jsp 各名前押下時のモーダルウィンド
 function showWork() {
 Swal.fire({

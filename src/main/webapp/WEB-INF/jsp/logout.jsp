@@ -12,8 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Noto+Sans+JP:wght@100..900&family=Zen+Kaku+Gothic+Antique&family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>どこつぶログアウト</h1>
+<h1>Time Popログアウト</h1>
 <p>ログアウトしました</p>
-<a href="index.jsp">トップへ</a>
+<a href="index.jsp"><input type="button" value="TOPへ"></a>
 </body>
 </html>

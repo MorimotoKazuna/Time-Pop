@@ -21,26 +21,28 @@ public class Login extends HttpServlet {
 	// ブラウザからログイン情報の取得
 		// リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		String pass = request.getParameter("pass");
-		
+		// ログイン画面で入力された値の取得
+		String email = request.getParameter("email").trim();
+		String password = request.getParameter("password").trim();
+
 		// Userインスタンス（ユーザー情報）の生成
-		User user = new User(name, pass);
+		User user = new User(email, password);
 		
 		// ログイン処理
-		LoginLogic loginlgic = new LoginLogic();
-		boolean isLogic = loginlgic.execute(user);
+		LoginLogic loginlogic = new LoginLogic();
+		boolean isLogic = loginlogic.execute(user);		// loginlogicはLoginLogicを基にインスタンス化し、LoginLogicのexecuteメソッドを用いてboolean判定し、isLogicへTrueかFalseで代入する
 		
-		// ログイン成功時の処理
+		// ログイン成功時の処理 isLogic = True
 		if (isLogic) {
 			// ユーザー情報をセッションスコープに保存
 			
 			HttpSession session = request.getSession();		// スコープの設置
-			session.setAttribute("loginUser", user);		// スコープにインスタンスを保存
+			session.setAttribute("loginUser", user);		// スコープにuserインスタンス(emailとpassを持ってる)を保存
 		}
 		
 		// ログイン結果画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginResult.jsp");
 		dispatcher.forward(request,response);
 	}	
+
 }

@@ -10,7 +10,7 @@ User loginUser = (User) session.getAttribute("loginUser");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>Time Pop</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css"> 
 <!--Google Fonts-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,16 +20,16 @@ User loginUser = (User) session.getAttribute("loginUser");
 <body>
 <div class="main">
 	<div class="main2 subtitle">
-		<h1>どこつぶログイン</h1>
+		<h1>Time Popログイン</h1>
 	</div>
 	<div class="main2">
 		<% if (loginUser != null) { %>
 			<p>ログインに成功しました</p>
-			<p>ようこそ<%= loginUser.getName() %>さん</p>
-			<a href="Main">つぶやき投稿・閲覧へ</a>
+			<p>ようこそさん</p>
+			<a href="Main"><input type="button" value="出退勤登録画面へ"></a>
 		<% } else {%>
 			<p>ログインに失敗しました</p>
-			<a href="index.jsp">TOPへ</a>
+			<a href="index.jsp"><input type="button" value="TOPへ"></a>
 		<% } %>
 	</div>
 </div>

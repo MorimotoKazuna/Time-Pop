@@ -132,14 +132,30 @@ padding: 5px;
 }
 
 /* ポップアップ時のボタン背景色の変更 　メイン画面ログインボタン */
-.my-confirm-btn,.my-cancel-btn,.header-btn{
-  background-color: #fff;
+.header-btn{
+  background-color: #ffffff;
   color:  #FF8B20;
   border: solid #FF8B20;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.my-confirm-btn,.my-cancel-btn{
   padding: 8px 16px;
   border-radius: 4px;
   font-weight: bold;
   margin: auto 20px;
+}
+.my-confirm-btn{
+  background-color: #ffffff;
+  color:  #FF8B20;
+  border: solid #FF8B20;
+}
+.my-cancel-btn {
+  background-color: #b6b6b6;
+  color:  #ffffff;
+  border: solid #b6b6b6;
 }
 
 /* コンテナで囲って離れたら閉じる */
@@ -224,6 +240,6 @@ body {
 }
 
 /* テーブル */
-table {
-    background: ;
+.member {
+    background-color: #ccc;
 }

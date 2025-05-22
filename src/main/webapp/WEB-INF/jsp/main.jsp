@@ -14,46 +14,53 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>出退勤登録</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <!--Google Fonts-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Noto+Sans+JP:wght@100..900&family=Zen+Kaku+Gothic+Antique&family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+<!-- CDN 読み込み -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/script.js" defer></script>
 </head>
 <body>
-<h1>どこつぶメイン</h1>
-<p>
-<%= loginUser.getName() %> さん、ログイン中<br>
-<a href="Logout">ログアウト</a>
-</p>
-<p><a href="Main">更新</a></p>
-<form action="Main" method="post">
-<input type="text" name="text" placeholder="何をつぶやきますか？" >
-<input type="submit" value="つぶやく">
-</form>
-<div class="toukou">
-		<!--<% if (errorMsg != null ) { %>-->
-		<!--<p><%= errorMsg %></p>-->
-		<!--<% } %>-->
-		<!--<% for (Mutter mutter : mutterList) {%>-->
-		<!--<p><%= mutter.getUserName() %>：<%= mutter.getText() %></p>-->
-		<!--<% } %>-->
+    <header>
+        <div class="head-into">
+            <p>ロゴ</p>
+			<p>出退勤登録</p>
+        </div>
+        <div class="head-into">
+            <input type="button" value="月報出力" class="header-btn">
+            <button onclick="showLogin()" class="header-btn">ログイン</button>
+            <a href="Logout"><input type="button" value="ログアウト"></a>
+        </div>
+    </header>
+    <div class="sub-area">
+        <p id="datetime"></p>
 
-  <% if (errorMsg != null ) { %>
-    <p><%= errorMsg %></p>
-  <% } %>
-
-  <% for (Mutter mutter : mutterList) {
-	  // 投稿が自分のものかの真偽を判定し、isMyPostに格納
-       boolean isMyPost = mutter.getUserName().equals(loginUser.getName());
-	  // isMyPostが真ならmy-postを、偽ならother-postを"cssClass"に代入
-       String cssClass = isMyPost ? "my-post" : "other-post";
-  %>
-    <div class="mutter <%= cssClass %>">
-      <p><strong><%= mutter.getUserName() %></strong><br><%= mutter.getText() %></p>
     </div>
-  <% } %>
-</div>
+    <main>
+        <div class="member">
+            <table>
+                <tr>
+                    <th>利用者番号</th>
+                    <th>名前</th>
+                    <th>出勤</th>
+                    <th>退勤</th>
+                </tr>
+
+            <!-- ▼データベースから情報を取ってきて、利用者番号昇順で表示 -->
+                <tr>
+                    <td>A</td>
+                    <td><button onclick="showWork()">利用者B</button></td>
+                    <td>c</td>
+                    <td>d</td>
+                </tr>
+            <!-- ▲ここまで -->
+            </table>
+        </div>
+
+    </main>
 </body>
 </html>
