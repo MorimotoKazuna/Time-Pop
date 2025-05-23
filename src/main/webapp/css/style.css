@@ -1,0 +1,245 @@
+@charset "UTF-8";
+
+/* 共通部分設定 */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font: #333;
+    text-align: center;
+}
+
+input::placeholder {
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    border:1px solid #333;
+    border-radius: 10PX;
+}
+
+.main2 {
+    margin: auto;
+}
+
+.subtitle {
+    font-size: 15px;
+    padding: 30px 0 0;
+}
+
+input {
+    margin: 10px;
+}
+
+.toukou {
+    margin: auto 10px;
+    /* padding-left: 10px;
+    text-align: left; */
+    /* border: .5rem solid #333; 枠の大きさ見るため */
+}
+.myself {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.others {
+    padding-left: 10px;
+    text-align: left;
+}
+
+/* 投稿を囲む枠 */
+.mutter {
+    max-width: 60%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+  }
+  
+  /* ログインユーザーの投稿（右側） */
+  .my-post {
+    background-color: #dfdfdf;
+    margin-left: auto;
+    text-align: right;
+  }
+  
+  /* 他ユーザーの投稿（左側） */
+  .other-post {
+    background-color: #dfdfdf;
+    margin-right: auto;
+    text-align: left;
+  }
+  
+/* Google Fonts */
+body {
+    font-family: "Zen Maru Gothic", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+/* ポップアップウィンド表示 */
+body {
+font-family: sans-serif;
+}
+
+#login-button {
+cursor: pointer;
+color: blue;
+text-decoration: underline;
+position: relative;
+}
+
+#login-popup {
+display: none;
+position: absolute;
+top: 30px;
+left: 0;
+padding: 20px;
+border: 1px solid #ccc;
+background-color: white;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+width: 200px;
+border-radius: 8px;
+}
+
+#login-popup input {
+display: block;
+width: 100%;
+margin-bottom: 10px;
+padding: 5px;
+}
+
+/* 年月日時間の表示方法 */
+.tobig {
+    font-size: 3.0em; /* 数字を大きく */
+    font-weight: bold;
+}
+.big {
+    font-size: 1.8em; /* 数字を大きく */
+    font-weight: bold;
+}
+.small {
+    font-size: 1.0em; /* 年・月・日などの文字を小さく */
+    vertical-align: baseline;
+}
+
+/* ポップアップ時のボタン背景色の変更 　メイン画面ログインボタン */
+.header-btn{
+  background-color: #ffffff;
+  color:  #FF8B20;
+  border: solid #FF8B20;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.my-confirm-btn,.my-cancel-btn{
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.my-confirm-btn{
+  background-color: #ffffff;
+  color:  #FF8B20;
+  border: solid #FF8B20;
+}
+.my-cancel-btn {
+  background-color: #b6b6b6;
+  color:  #ffffff;
+  border: solid #b6b6b6;
+}
+
+/* コンテナで囲って離れたら閉じる */
+.popup-container {
+display: inline-block;
+position: relative;
+}
+/* 現在時刻の表示 */
+#clock {
+    background-color: #222;
+    color: #fff;
+    font-size: x-large;
+    margin-bottom:10px
+}
+/* 出退勤ボタン*/
+.inbtn {
+    background-color: #FF8B20;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 80px;
+    padding: 0.5em 1em 0.5em 1.5em;      /* ボタン内の余白 */
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: x-large;
+    margin: auto 20px;
+    letter-spacing: 0.5em;
+}
+.outbtn {
+    background-color: #41dd87;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 80px;
+    padding: 0.5em 1em 0.5em 1.5em;      /* ボタン内の余白 */
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: x-large;
+    margin: auto 20px;
+    letter-spacing: 0.5em;
+}
+
+.register-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* ヘッダー */
+header {
+    height: 4.0em;
+    display: flex;
+    justify-content: center;    /* 左右中央揃え */
+    align-items: center;        /* 上下中央揃え */
+    background-color: #fff;
+}
+.head-into p {
+    width: 200PX;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #41dd87;
+    color: #FFF;
+    font-weight: bold;
+    font-size: x-large;
+}
+.head-into {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+body {
+    background-color: #FF8B20;
+} 
+.now-date {
+    width: 250px;
+    height: auto;
+    background-color: #FF8820;
+    color: #ffffff;
+    border: solid #ffffff;
+}
+
+/* テーブル */
+.member {
+    background-color: #ccc;
+}

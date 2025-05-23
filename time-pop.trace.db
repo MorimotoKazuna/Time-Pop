@@ -1,0 +1,9 @@
+2025-05-22 11:45:34.613923+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+SELECT * FROM USERS [42104-232]
+2025-05-22 11:46:13.849655+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+SELECT * FROM USERS  [42104-232]
+2025-05-22 11:55:32.849954+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ATTENDANCE" not found (this database is empty); SQL statement:
+SELECT * FROM ATTENDANCE [42104-232]
