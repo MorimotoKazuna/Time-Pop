@@ -102,8 +102,8 @@ Swal.fire({
         '<div class="register-action">' +
             '<form>' +
                 '  ID: <input type="text" name="id" id="id"><br>' +
-                ' 名前: <input type="text" name="name" id="name"><br>' +
-                ' 名前（ふりがな）: <input type="text" name="nameFurigana" id="nameFurigana"><br>' +
+                ' 名前: <input type="text" name="name" id="name" placeholder="姓　名"><br>' +
+                ' 名前（ふりがな）: <input type="tex姓t" name="nameFurigana" id="nameFurigana"　placeholder="せい　めい"><br>' +
                 ' <input type="hidden" name="createdAt" id="createdAt">' +
             '</form>' +
         '</div>',
@@ -132,6 +132,17 @@ Swal.fire({
     　　Swal.showValidationMessage('ふりがなはひらがなで入力してください');
         return false;
     　}
+     // 🔽 名前を分割してスペースで結合
+        const nameParts = name.split(/\s+/); // スペースで分割（複数スペースも対応）
+        if (nameParts.length !== 2) {
+            Swal.showValidationMessage('姓と名の間にはスペースを入力してください');
+            return false;
+        }
+        const namePartsF = nameFurigana.split(/\s+/); // スペースで分割（複数スペースも対応）
+        if (namePartsF.length !== 2) {
+            Swal.showValidationMessage('ふりがなの姓と名の間にはスペースを入力してください');
+            return false;
+        }
 
     // 🔽 登録確定時点の時刻を取得
     const createdAt = new Date().toISOString();
@@ -142,19 +153,6 @@ Swal.fire({
     }).then((result) => {
         if (result.isConfirmed && result.value) {
         const { id, name, nameFurigana, createdAt } = result.value;
-
-         // 🔽 成功時の表示（サーバー送信しない場合はfetch以降のコメント化で表示可能）
-        Swal.fire({
-            icon: 'success',
-            title: '登録完了',
-            html: `
-            <p>登録日時: ${createdAt}</p>
-            <p>ID: ${id}</p>
-            <p>名前: ${name}</p>
-            <p>ふりがな: ${nameFurigana}</p>
-            <p>を登録しました</p>
-            `
-        });
 
         // サーバー送信
         fetch('RegisterUser', {
@@ -173,7 +171,17 @@ Swal.fire({
         if (data === '登録失敗') {
             Swal.fire('登録失敗', 'そのIDはすでに使われています', 'warning');
         } else if (data === '登録成功') {
-            Swal.fire('登録完了', 'ユーザーが正常に登録されました', 'success');
+                   Swal.fire({
+            icon: 'success',
+            title: '登録完了',
+            html: `
+            <p>登録日時: ${createdAt}</p>
+            <p>ID: ${id}</p>
+            <p>名前: ${name}</p>
+            <p>ふりがな: ${nameFurigana}</p>
+            <p>を登録しました</p>
+            `
+        });
         } else {
             Swal.fire('エラー', '登録に失敗しました', 'error');
         }
@@ -214,15 +222,17 @@ Swal.fire({
 }
 
 // ▼ main.jsp 各名前押下時のモーダルウィンド
-function showWork() {
+function showWork(userId, nameFurigana) {
 Swal.fire({
     title: '出退勤記録',
     html:
+     `<p>ID：${userId}</p>` +
+     `<p>${nameFurigana}さん</p>` +
         '<div id="clock" style="font-size:16px; margin-bottom:10px;"></div>' +  // 時計表示用エリア追加
         '<div class="register-action">' +
             '<form action="Inter" method="post">' +
                 '<input type="hidden" name="action" value="start">' +
-                '<input type="submit" class="inbtn" value="出勤" name="inter">' +
+                '<input type="submit" class="inbtn" value="出勤" name="inter" id="createAt">' +
             '</form>' +
             '<form action="Enter" method="post">' +
                ' <input type="hidden" name="action" value="end">' +
@@ -230,12 +240,11 @@ Swal.fire({
             '</form>' +
         '</div>',
     showCancelButton: true,
-    confirmButtonText: '登録',
+     showConfirmButton: false, // ← 「登録」ボタンを非表示
     cancelButtonText: '閉じる',  // ★バツの画像を右上に貼り付けで対応した方がいいかも
     allowOutsideClick: false,   // ← 背景クリックで閉じない
     allowEscapeKey: false,      // ← Escキーで閉じない
     customClass: {
-    confirmButton: 'my-confirm-btn',
     cancelButton: 'my-cancel-btn'
     },
     buttonsStyling: false, // ← SweetAlert2のデフォルトボタンスタイルを無効にする
@@ -251,18 +260,77 @@ Swal.fire({
       updateClock();  // 即時実行
       // 1秒ごとに時計を更新
       const intervalId = setInterval(updateClock, 1000);
-
-      // モーダルが閉じられたら時計の更新を止める
       Swal.getPopup().addEventListener('remove', () => clearInterval(intervalId));
+            }
+      });
     }
-    // preConfirm: () => {
-    // const username = document.getElementById('username').value;
-    // const password = document.getElementById('password').value;
-    // return { username, password };
-    // }
-// }).then((result) => {
-//     if (result.isConfirmed) {
-//     console.log('ログイン情報:', result.value);
+//       // ▼ 出勤ボタンにイベントリスナー追加
+//       document.getElementById("startForm").addEventListener("submit", function(e) {
+//         e.preventDefault(); // フォーム送信を止める
+
+//         Swal.fire({
+//           icon: 'success',
+//           title: `${user.getNameFurigana()}さん、おはようございます！`,
+//           text: '今日も一日頑張りましょう！',
+//           timer: 1500,
+//           showConfirmButton: false
+//         }).then(() => {
+//           // メッセージ表示後に出勤処理を送信
+//           this.submit(); // フォームを送信
+//         });
+//       });
 //     }
-});
-}
+//     //   // 🔽 登録確定時点の時刻を取得
+//     //   const createdAt = new Date().toISOString();
+
+//     //   // モーダルを閉じずに次の処理へ
+//     //   return { id, createdAt };
+//     // }    
+// //     }).then((result) => {
+// //         if (result.isConfirmed && result.value) {
+// //         const { id, createdAt } = result.value;
+
+// //         // サーバー送信
+// //         fetch('InterUser', {
+// //         method: 'POST',
+// //         headers: {
+// //             'Content-Type': 'application/x-www-form-urlencoded'
+// //         },
+// //         body: `id=${encodeURIComponent(id)}&name=${encodeURIComponent(name)}&nameFurigana=${encodeURIComponent(nameFurigana)}&createdAt=${encodeURIComponent(createdAt)}`
+// //         })
+// //         .then(response => {
+// //         if (!response.ok) throw new Error('サーバーエラー');
+// //         return response.text(); // Servletからのレスポンス（テキスト）を取得
+// //         })
+// //         .then(data => {
+// //         console.log('サーバー応答:', data);
+// //         if (data === '登録失敗') {
+// //             Swal.fire('登録失敗', 'そのIDはすでに使われています', 'warning');
+// //         } else if (data === '登録成功') {
+// //                    Swal.fire({
+// //             icon: 'success',
+// //             title: '登録完了',
+// //             html: `
+// //             <p>登録日時: ${createdAt}</p>
+// //             <p>ID: ${id}</p>
+// //             <p>名前: ${name}</p>
+// //             <p>ふりがな: ${nameFurigana}</p>
+// //             <p>を登録しました</p>
+// //             `
+// //         });
+// //         } else {
+// //             Swal.fire('エラー', '登録に失敗しました', 'error');
+// //         }
+// //         })
+// //         .catch(error => {
+// //         console.error('通信エラー:', error);
+// //         Swal.fire('エラー', '通信に失敗しました', 'error');
+// //         });
+// //     }
+// // 　});
+// // }
+
+
+
+//       // モーダルが閉じられたら時計の更新を止める
+//     //   Swal.getPopup().addEventListener('remove', () => clearInterval(intervalId));

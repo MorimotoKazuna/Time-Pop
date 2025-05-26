@@ -4,10 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.UserDAO;
-import model.LoginLogic;
-import model.User;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -21,7 +17,8 @@ public class Main {
     	try (Connection conn = DriverManager.getConnection("jdbc:h2:~/timepop", "sa", "1234")) {
     		
     		// 【処理内容】
-    		String sql = "SELECT * FROM USERS";
+//    		String sql = "SELECT * FROM USERS ";
+    		String sql = "SELECT * FROM USERS WHERE ROLE = 'user' ORDER BY ID";
     		PreparedStatement pStmt = conn.prepareStatement(sql);
     		
     		ResultSet rs = pStmt.executeQuery();
@@ -54,15 +51,17 @@ public class Main {
 //        } else {
 //            System.out.println("ユーザーが見つかりませんでした。");
 //        }
-    	UserDAO dao = new UserDAO();
-        dao.findAllUser();
-//        String inputEmail = "admin@example";
-//        String inputPassword = "0000";
-        User user = new User("admin@example", "0000");
-        System.out.println(user);
-		LoginLogic loginlogic = new LoginLogic();
-		boolean isLogic = loginlogic.execute(user);	
-        System.out.println(isLogic);
-        dao.findUserByRoleAndState();
+//// 	▼
+//    	UserDAO dao = new UserDAO();
+//        dao.findAllUser();
+////        String inputEmail = "admin@example";
+////        String inputPassword = "0000";
+//        User user = new User("admin@example", "0000");
+//        System.out.println(user);
+//		LoginLogic loginlogic = new LoginLogic();
+//		boolean isLogic = loginlogic.execute(user);	
+//        System.out.println(isLogic);
+//        dao.findUserByRoleAndState();
+////　▲
     }
 }

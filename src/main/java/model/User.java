@@ -21,10 +21,16 @@ public class User implements Serializable {
 		this.role = role;
 	}
 	
-	// user登録用 not admin
+	// user登録用
 	public User(int id, String name, String nameFurigana) {
 		this.id = id;
 		this.name = name;
+		this.nameFurigana = nameFurigana;
+	}
+	
+	// userメイン画面出力用
+	public User(int id, String nameFurigana) {
+		this.id = id;
 		this.nameFurigana = nameFurigana;
 	}
 	
@@ -33,12 +39,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.password = password;
 	}
-	
-	// メイン画面 role = user
-	public User(int id, String name) {
-		this.email = email;
-	}
-	
+
 	
 	public int getId() {return id;}
 	public String getName() {return name;}

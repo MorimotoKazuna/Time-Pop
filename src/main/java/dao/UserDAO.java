@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.User;
 
@@ -58,6 +60,29 @@ import model.User;
 		        }
 	    }
 	    
+	    
+	   //【メイン画面への出退勤登録対象者(role = user)の出力】
+	   public List<User> findUserByRole() {
+		   List<User> userList = new ArrayList<>();
+		   
+		   try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			   String sql = "SELECT * FROM USERS WHERE ROLE = 'user' ORDER BY ID";
+		   		PreparedStatement pStmt = conn.prepareStatement(sql);
+		   		ResultSet rs = pStmt.executeQuery();
+		   		
+		   		while (rs.next()) {
+		   			int id = rs.getInt("ID");
+		   			String nameFurigana = rs.getString("NAME_FURIGANA");
+		   			User user = new User(id,nameFurigana);
+		   			userList.add(user);
+			   }
+		   } catch (SQLException e) {
+	            e.printStackTrace();
+		        return null;
+	        }
+		   return userList;
+	   }
+
 		    
 	   //【管理者ユーザーログイン用】
 	   public User findUserByEmailAndPass(String email, String password) {
@@ -88,7 +113,8 @@ import model.User;
 	        }
 	    }
 	   
-	   //【Usersテーブルへrole = userの登録 part1】
+	   
+	   //【Usersテーブルへrole = userの登録】
 	   public boolean registerUser(int id, String name, Timestamp time, String nameFurigana) {
 		   // H2データベースへ繋ぐ
 	        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
@@ -115,9 +141,8 @@ import model.User;
 	        }
 
 	   	}
+
 	   
-	   
-	   //【Usersテーブルへrole = userの登録 part2 idの重複時】
 	   
 		   // メイン画面に利用者(role = user)の情報を取得するためのSQL文
 	   // Arraylistに格納必須

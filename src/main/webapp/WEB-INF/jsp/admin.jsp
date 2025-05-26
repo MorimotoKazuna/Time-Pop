@@ -30,6 +30,10 @@
 
     <button onclick="registerUser()">利用者登録</button><br>
     <button onclick="deleteUser()">利用者登録削除</button>
+    <form action="Main" method="get">
+	    <button type="submit">戻る</button>
+	</form>
+    
 
 
 </body>

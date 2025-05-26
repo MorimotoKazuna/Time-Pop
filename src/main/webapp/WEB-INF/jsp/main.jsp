@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.User, model.Mutter, java.util.List" %>
+<%@ page import="model.User, java.util.List" %>
 
 <% 
 // セッションスコープに保存された情報を取得
 User loginUser = (User) session.getAttribute("loginUser");
-// アプリケーションスコープに保存されたつぶやきリストを取得
-List<Mutter> mutterList = (List<Mutter>)request.getAttribute("mutterList");
+// アプリケーションスコープに保存されたユーザーリストを取得
+List<User> userList = (List<User>)request.getAttribute("userList");
 // リクエストスコープに保存されたエラーメッセージを取得
-String errorMsg = (String)request.getAttribute("errorMsg");
+//String errorMsg = (String)request.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@ String errorMsg = (String)request.getAttribute("errorMsg");
         <div class="head-into">
             <input type="button" value="月報出力" class="header-btn">
             <button onclick="showLogin()" class="header-btn">ログイン</button>
-            <a href="Logout"><input type="button" value="ログアウト"></a>
+            <a href="Logout"><input type="button" value="終了"></a>
         </div>
     </header>
     <div class="sub-area">
@@ -42,22 +42,27 @@ String errorMsg = (String)request.getAttribute("errorMsg");
     </div>
     <main>
         <div class="member">
+
             <table>
                 <tr>
                     <th>利用者番号</th>
                     <th>名前</th>
-                    <th>出勤</th>
-                    <th>退勤</th>
                 </tr>
 
             <!-- ▼データベースから情報を取ってきて、利用者番号昇順で表示 -->
-                <tr>
-                    <td>A</td>
-                    <td><button onclick="showWork()">利用者B</button></td>
-                    <td>c</td>
-                    <td>d</td>
-                </tr>
-            <!-- ▲ここまで -->
+			<% for(User user : userList) { 
+			     String nameFurigana = user.getNameFurigana().replace("'", "\\'");
+			%>
+			    <tr>
+			        <td><%= user.getId() %></td>
+			        <td>
+			            <button onclick="showWork(<%= user.getId() %>, '<%= nameFurigana %>')">
+			                <%= user.getNameFurigana() %>
+			            </button>
+			        </td>
+			    </tr>
+			<% } %>           
+			 <!-- ▲ここまで -->
             </table>
         </div>
 
