@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.User, java.util.List" %>
+<%@ page import="model.User, java.util.List, java.util.Map" %>
 
 <% 
 // セッションスコープに保存された情報を取得
@@ -9,6 +9,11 @@ User loginUser = (User) session.getAttribute("loginUser");
 List<User> userList = (List<User>)request.getAttribute("userList");
 // リクエストスコープに保存されたエラーメッセージを取得
 //String errorMsg = (String)request.getAttribute("errorMsg");
+// todayStatusを受け取り、使う
+Map<Integer, Boolean> todayStatus = (Map<Integer, Boolean>) request.getAttribute("todayStatus");
+// timeMapを受け取り、使う
+Map<Integer, String[]> timeMap = (Map<Integer, String[]>) request.getAttribute("timeMap");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +36,7 @@ List<User> userList = (List<User>)request.getAttribute("userList");
 			<p>出退勤登録</p>
         </div>
         <div class="head-into">
-            <input type="button" value="月報出力" class="header-btn">
+	        <button onclick="showMonthlyReportDialog()" class="header-btn">月報出力</button>
             <button onclick="showLogin()" class="header-btn">ログイン</button>
             <a href="Logout"><input type="button" value="終了"></a>
         </div>
@@ -47,19 +52,38 @@ List<User> userList = (List<User>)request.getAttribute("userList");
                 <tr>
                     <th>利用者番号</th>
                     <th>名前</th>
+                    <th>出勤時間</th>
+                    <th>退勤時間</th>
                 </tr>
 
             <!-- ▼データベースから情報を取ってきて、利用者番号昇順で表示 -->
 			<% for(User user : userList) { 
 			     String nameFurigana = user.getNameFurigana().replace("'", "\\'");
+			     // todayStatusをつかって、出勤しているかのtrue/falseの情報をstatusに格納
+			     Boolean status = todayStatus.get(user.getId());
+			     // nullをチェックしながら、statusがtrueだった場合、 isDisabledにtrueを返す（出勤済みだったらボタンを無効にするための判定）
+			     boolean isDisabled = status != null && status;
+			     
+			     // timeMapからそのユーザーidをもつユーザーの出退勤時間（配列）を取り出す
+			     // times[0]=clockIn times[1]=clockOut
+			     // なければtimesはnull
+			     String[] times = timeMap.get(user.getId());
+			     // timesがnullではない、かつ出勤時間も記録されていたらそれを使う、なければ"_"と表示
+			     String clockIn = (times != null && times[0] != null) ? times[0] : "-";
+			     // 上記の退勤時間ver.
+			     String clockOut = (times != null && times[1] != null) ? times[1] : "-";
 			%>
 			    <tr>
 			        <td><%= user.getId() %></td>
 			        <td>
-			            <button onclick="showWork(<%= user.getId() %>, '<%= nameFurigana %>')">
-			                <%= user.getNameFurigana() %>
-			            </button>
+						<button
+						    onclick="showWork(<%= user.getId() %>, '<%= nameFurigana %>', <%= status != null && status ? "true" : "false" %>)"
+						    <%= status != null && status ? "disabled class='disabled-btn'" : "" %>>
+						    <%= user.getNameFurigana() %>
+						</button>
 			        </td>
+			        <td><%= clockIn %></td>
+			        <td><%= clockOut %></td>
 			    </tr>
 			<% } %>           
 			 <!-- ▲ここまで -->
@@ -67,5 +91,16 @@ List<User> userList = (List<User>)request.getAttribute("userList");
         </div>
 
     </main>
+<script>
+  const users = [
+    <% for (int i = 0; i < userList.size(); i++) {
+         User u = userList.get(i); %>
+      {
+        id: <%= u.getId() %>,
+        name: "<%= u.getNameFurigana() %>"
+      }<%= (i != userList.size() - 1) ? "," : "" %>
+    <% } %>
+  ];
+</script>
 </body>
 </html>

@@ -30,6 +30,62 @@ function updateDateTime() {
     setInterval(updateDateTime, 1000);
 
 
+
+// 【▼ main.jsp 月報出力ボタン押下時の出力画面】
+function showMonthlyReportDialog() {
+        // alert("ボタンは押されました！");
+    let optionsHtml = users.map(u => `<option value="${u.id}">${u.name}（ID: ${u.id}）</option>`).join('');
+
+    Swal.fire({
+        title: '月報出力',
+        html:
+            `<select id="userId" class="swal2-select">${optionsHtml}</select>` +
+            '<input id="startDate" type="date" class="swal2-input" placeholder="開始日">' +
+            '<input id="endDate" type="date" class="swal2-input" placeholder="終了日">',
+        showCancelButton: true,
+        confirmButtonText: '出力',
+        cancelButtonText: '閉じる',
+        allowOutsideClick: false,   // ← 背景クリックで閉じない
+        allowEscapeKey: false,      // ← Escキーで閉じない
+        customClass: {
+        confirmButton: 'my-confirm-btn',
+        cancelButton: 'my-cancel-btn'
+        },
+        buttonsStyling: false, // ← SweetAlert2のデフォルトボタンスタイルを無効にする
+
+        // ▼
+        preConfirm: () => {
+            const userId = document.getElementById('userId').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            if (!userId || !startDate || !endDate) {
+                Swal.showValidationMessage('すべての項目を入力してください');
+                return false;
+            }
+
+            // フォームを作ってPOST送信
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'MonthlyReport';
+
+            const inputs = { userId, startDate, endDate };
+            for (const name in inputs) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = inputs[name];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+        // ▲
+    });
+}
+
+
 // 【▼ main.jsp ログインボタン押下時の管理者ログイン】
 function showLogin() {
 Swal.fire({
@@ -222,48 +278,64 @@ Swal.fire({
 }
 
 // ▼ main.jsp 各名前押下時のモーダルウィンド
-function showWork(userId, nameFurigana) {
-Swal.fire({
-    title: '出退勤記録',
-    html:
-     `<p>ID：${userId}</p>` +
-     `<p>${nameFurigana}さん</p>` +
-        '<div id="clock" style="font-size:16px; margin-bottom:10px;"></div>' +  // 時計表示用エリア追加
-        '<div class="register-action">' +
-            '<form action="Inter" method="post">' +
-                '<input type="hidden" name="action" value="start">' +
-                '<input type="submit" class="inbtn" value="出勤" name="inter" id="createAt">' +
-            '</form>' +
-            '<form action="Enter" method="post">' +
-               ' <input type="hidden" name="action" value="end">' +
-                '<input type="submit" class="outbtn" value="退勤" name="enter">' +
-            '</form>' +
-        '</div>',
-    showCancelButton: true,
-     showConfirmButton: false, // ← 「登録」ボタンを非表示
-    cancelButtonText: '閉じる',  // ★バツの画像を右上に貼り付けで対応した方がいいかも
-    allowOutsideClick: false,   // ← 背景クリックで閉じない
-    allowEscapeKey: false,      // ← Escキーで閉じない
-    customClass: {
-    cancelButton: 'my-cancel-btn'
-    },
-    buttonsStyling: false, // ← SweetAlert2のデフォルトボタンスタイルを無効にする
+function showWork(userId, nameFurigana, isAlreadyClockedIn) {
+    const createdAt = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+    Swal.fire({
+        title: '出退勤記録',
+        html:
+            `<p>ID：${userId}</p>` +
+            `<p>${nameFurigana}さん</p>` +
+            '<div id="clock" style="font-size:16px; margin-bottom:10px;"></div>' +
+            '<div id="messageBox" style="font-size:14px; color:#444; margin-bottom:10px;"></div>' +
+            '<div class="register-action">' +
+                `<form action="Inter" method="post" id="startForm">
+                    <input type="hidden" name="user_id" value="${userId}">
+                    <input type="hidden" name="created_at" value="${createdAt}">
+                    <input type="hidden" name="action" value="start">
+                    <button type="button" class="inbtn" id="startBtn">出勤</button>
+                </form>` +
+                `<form action="Enter" method="post" id="endForm">
+                    <input type="hidden" name="user_id" value="${userId}">
+                    <input type="hidden" name="created_at" value="${createdAt}">
+                    <input type="hidden" name="action" value="end">
+                    <button type="button" class="outbtn" id="endBtn">退勤</button>
+                </form>` +
+            '</div>',
+        showCancelButton: true,
+        showConfirmButton: false,
+        cancelButtonText: '閉じる',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        customClass: {
+            cancelButton: 'my-cancel-btn'
+        },
+        buttonsStyling: false,
+        
  didOpen: () => {
-      // ▼ 時計を更新する関数
-      function updateClock() {
-        const now = new Date();
-        const h = String(now.getHours()).padStart(2, '0');
-        const m = String(now.getMinutes()).padStart(2, '0');
-        const s = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById('clock').textContent = `現在時刻: ${h}時${m}分${s}秒`;
-      }
-      updateClock();  // 即時実行
-      // 1秒ごとに時計を更新
-      const intervalId = setInterval(updateClock, 1000);
-      Swal.getPopup().addEventListener('remove', () => clearInterval(intervalId));
+            const startBtn = document.getElementById("startBtn");
+            const endBtn = document.getElementById("endBtn");
+
+             if (isAlreadyClockedIn) {
+                startBtn.disabled = true;
+                startBtn.classList.add("disabled-btn");
+                document.getElementById("messageBox").textContent = `${userId}さんは本日すでに出勤済みです。`;
+            } else {
+                startBtn.addEventListener("click", () => {
+                    document.getElementById("messageBox").textContent = `${userId}さん、おはようございます。`;
+                    document.getElementById("startForm").submit(); // フォーム送信
+                    setTimeout(() => location.reload(), 1000); // 1秒後に画面リロード（送信完了を待つ簡易対応）
+                });
             }
-      });
-    }
+
+            endBtn.addEventListener("click", () => {
+                document.getElementById("messageBox").textContent = `${userId}さん、お疲れさまでした。`;
+                document.getElementById("endForm").submit(); // フォーム送信
+                setTimeout(() => location.reload(), 1000); // 同上
+            });
+        }
+    });
+}
 //       // ▼ 出勤ボタンにイベントリスナー追加
 //       document.getElementById("startForm").addEventListener("submit", function(e) {
 //         e.preventDefault(); // フォーム送信を止める
