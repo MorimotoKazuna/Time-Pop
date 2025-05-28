@@ -93,13 +93,15 @@ Map<Integer, String[]> timeMap = (Map<Integer, String[]>) request.getAttribute("
     </main>
 <script>
   const users = [
-    <% for (int i = 0; i < userList.size(); i++) {
-         User u = userList.get(i); %>
+    <% if (userList != null) {
+         for (int i = 0; i < userList.size(); i++) {
+             User u = userList.get(i); %>
       {
         id: <%= u.getId() %>,
         name: "<%= u.getNameFurigana() %>"
       }<%= (i != userList.size() - 1) ? "," : "" %>
-    <% } %>
+    <%   }
+       } %>
   ];
 </script>
 </body>

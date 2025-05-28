@@ -159,7 +159,7 @@ Swal.fire({
             '<form>' +
                 '  ID: <input type="text" name="id" id="id"><br>' +
                 ' 名前: <input type="text" name="name" id="name" placeholder="姓　名"><br>' +
-                ' 名前（ふりがな）: <input type="tex姓t" name="nameFurigana" id="nameFurigana"　placeholder="せい　めい"><br>' +
+                ' 名前（ふりがな）: <input type="text" name="nameFurigana" id="nameFurigana" placeholder="せい　めい"><br>' +
                 ' <input type="hidden" name="createdAt" id="createdAt">' +
             '</form>' +
         '</div>',
@@ -250,32 +250,64 @@ Swal.fire({
 　});
 }
 
-// 【admin.jsp 利用者登録削除 state = disableに変更】
-function deleteUser() {
-Swal.fire({
-    title:'利用者登録削除利用者登録',
-    html:
-        '<div>' +
-        '<form>' +
-                '  ID: <input type="text" name="id" id="id"><br>' +
-                ' 名前: <input type="text" name="name" id="name"><br>' +
-                ' 名前（ふりがな）: <input type="text" name="nameFurigana" id="nameFurigana"><br>' +
-                ' <input type="hidden" name="createdAt" id="createdAt">' +
-            '</form>' +
-        '</div>',
 
-    showCancelButton: true,
-    confirmButtonText: '削除',
-    cancelButtonText: '閉じる',  // ★バツの画像を右上に貼り付けで対応した方がいいかも
-    allowOutsideClick: false,   // ← 背景クリックで閉じない
-    allowEscapeKey: false,      // ← Escキーで閉じない
-    customClass: {
-    confirmButton: 'my-confirm-btn',
-    cancelButton: 'my-cancel-btn'
-    },
-    buttonsStyling: false, // ← SweetAlert2のデフォルトボタンスタイルを無効にする
-　});
+// 【admin.jsp 利用者登録変更 stateの変更】
+function showStateChangeDialog() {
+    let optionsHtml = users.map(u => 
+        `<option value="${u.id}">${u.name}（ID: ${u.id}）</option>`).join('');
+
+    Swal.fire({
+        title: '利用者状態変更',
+        html:
+            `<select id="userId" class="swal2-select">${optionsHtml}</select>` +
+            `<select id="newState" class="swal2-select">
+                <option value="1">使用中</option>
+                <option value="0">未使用</option>
+            </select>`,
+        showCancelButton: true,
+        confirmButtonText: '変更',
+        cancelButtonText: '閉じる',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        customClass: {
+            confirmButton: 'my-confirm-btn',
+            cancelButton: 'my-cancel-btn'
+        },
+        buttonsStyling: false,
+        preConfirm: () => {
+            const userId = document.getElementById('userId').value;
+            const newState = document.getElementById('newState').value;
+
+            if (!userId) {
+                Swal.showValidationMessage('ユーザーを選択してください');
+                return false;
+            }
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'ChangeState'; // ← Servlet名
+
+            const input1 = document.createElement('input');
+            input1.type = 'hidden';
+            input1.name = 'userId';
+            input1.value = userId;
+
+            const input2 = document.createElement('input');
+            input2.type = 'hidden';
+            input2.name = 'newState';
+            input2.value = newState;
+
+            form.appendChild(input1);
+            form.appendChild(input2);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
 }
+
+
+
 
 // ▼ main.jsp 各名前押下時のモーダルウィンド
 function showWork(userId, nameFurigana, isAlreadyClockedIn) {

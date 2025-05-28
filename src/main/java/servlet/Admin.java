@@ -19,8 +19,8 @@ import model.GetUserListLogic;
 import model.User;
 
 
-@WebServlet("/Main")
-public class Main extends HttpServlet {
+@WebServlet("/Admin")
+public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,7 +63,7 @@ public class Main extends HttpServlet {
 	        response.sendRedirect("index.jsp");
 	    } else {
 	        // ログイン済みなら画面表示
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin.jsp");
 	        dispatcher.forward(request, response);
 	    }
 	}	

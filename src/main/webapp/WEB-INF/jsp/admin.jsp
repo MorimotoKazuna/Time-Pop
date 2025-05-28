@@ -1,4 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="model.User, java.util.List, java.util.Map" %>
+<% 
+// セッションスコープに保存された情報を取得
+User loginUser = (User) session.getAttribute("loginUser");
+// アプリケーションスコープに保存されたユーザーリストを取得
+List<User> userList = (List<User>)request.getAttribute("userList");
+// リクエストスコープに保存されたエラーメッセージを取得
+//String errorMsg = (String)request.getAttribute("errorMsg");
+// todayStatusを受け取り、使う
+Map<Integer, Boolean> todayStatus = (Map<Integer, Boolean>) request.getAttribute("todayStatus");
+// timeMapを受け取り、使う
+Map<Integer, String[]> timeMap = (Map<Integer, String[]>) request.getAttribute("timeMap");
+
+%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -25,16 +39,31 @@
             document.getElementById("createdAt").value = now;
         }
     </script>
+    <script>
+	    const users = <%= new com.google.gson.Gson().toJson(userList) %>;
+	</script>	
 </head>
 <body>
 
     <button onclick="registerUser()">利用者登録</button><br>
-    <button onclick="deleteUser()">利用者登録削除</button>
+    <button onclick="showStateChangeDialog()">利用者状態変更</button>
+
+
     <form action="Main" method="get">
 	    <button type="submit">戻る</button>
 	</form>
     
 
-
+<script>
+  const users = [
+    <% for (int i = 0; i < userList.size(); i++) {
+         User u = userList.get(i); %>
+      {
+        id: <%= u.getId() %>,
+        name: "<%= u.getNameFurigana() %>"
+      }<%= (i != userList.size() - 1) ? "," : "" %>
+    <% } %>
+  ];
+</script>
 </body>
 </html>

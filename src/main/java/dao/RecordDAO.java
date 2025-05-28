@@ -7,8 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import model.AttendanceRecord;
+
 
 
 
@@ -58,7 +64,7 @@ public class RecordDAO {
     
     // ×【出勤処理 part1 出勤時間の入力有無確認】
     public boolean hasClockInForDate(int userId, LocalDate date) {
-        String sql = "SELECT COUNT(*) FROM RECORDS WHERE user_id = ? AND DATE(created_at) = ?";
+        String sql = "SELECT COUNT(*) FROM ATTENDANCE WHERE user_id = ? AND DATE(created_at) = ?";
         try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
              stmt.setInt(1, userId);
@@ -102,5 +108,54 @@ public class RecordDAO {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
+    }
+    
+    public List<AttendanceRecord> getAttendanceWithUserNames(int userId, LocalDate startDate, LocalDate endDate) {
+    	
+        List<AttendanceRecord> records = new ArrayList<>();
+        
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+
+		        String sql = """
+		            SELECT 
+						a.user_id,
+						a.date,
+						a.clock_in,
+						a.clock_out,
+						u.name
+						FROM 
+						ATTENDANCE a
+						JOIN 
+						USERS u ON a.user_id = u.id
+						WHERE
+						a.user_id = ?
+						AND a.date BETWEEN ? AND ?
+						ORDER BY 
+						a.date, a.user_id;
+		        """;
+		        
+        		PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, userId);
+                stmt.setDate(2, java.sql.Date.valueOf(startDate));
+                stmt.setDate(3, java.sql.Date.valueOf(endDate));
+
+	             ResultSet rs = stmt.executeQuery();
+	
+	             while (rs.next()) {
+	            	    int uId = rs.getInt("user_id");
+	            	    LocalDate date = rs.getDate("date").toLocalDate(); // ← 修正
+	            	    LocalTime clockIn = rs.getTime("clock_in") != null ? rs.getTime("clock_in").toLocalTime() : null; // ← 修正
+	            	    LocalTime clockOut = rs.getTime("clock_out") != null ? rs.getTime("clock_out").toLocalTime() : null; // ← 修正
+	            	    String name = rs.getString("name");
+
+	            	    records.add(new AttendanceRecord(uId, date, clockIn, clockOut, name));
+	            	}
+	
+	        } catch (SQLException e) {
+	        	 e.printStackTrace();
+	        	 System.out.println("出勤データの取得中にエラーが発生しました");
+	        }
+
+        return records;
     }
 }

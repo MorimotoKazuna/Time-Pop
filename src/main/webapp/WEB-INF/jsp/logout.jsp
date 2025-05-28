@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>Time Pop</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <!--Google Fonts-->
 <link rel="preconnect" href="https://fonts.googleapis.com">

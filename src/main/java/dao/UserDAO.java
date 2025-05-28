@@ -143,6 +143,89 @@ import model.User;
 	        }
 
 	   	}
+	   
+	   
+	   //【Usersテーブルへrole = userのstate更新】
+	   public boolean updateUserState(int id, String name, Timestamp time, String nameFurigana) {
+		   // H2データベースへ繋ぐ
+	        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+	        	// SQLのINSERT文の設定
+	            String sql = "INSERT INTO USERS (ID, NAME, ROLE, CREATED_AT, STATE, NAME_FURIGANA) VALUES (?, ?, 'user', ?, 'active', ?)";
+	            PreparedStatement pStmt = conn.prepareStatement(sql);
+	            
+	            // 1～4つ目の？
+	            pStmt.setInt(1, id);
+	            pStmt.setString(2, name);
+	            pStmt.setTimestamp(3, time); // サーブレットのTimestampから取ってくる createdAt
+	            pStmt.setString(4, nameFurigana);
+	            
+	            pStmt.executeUpdate(); // INSERTなので executeUpdate() を使う
+	            
+                System.out.println("利用者登録完了");
+                return true;
+	                
+            } catch (SQLException e) {
+	            e.printStackTrace();
+	            System.out.println("利用者登録失敗");
+	            return false;
+	            
+	        }
+
+	   	}
+	   
+	   // ▼【role=userのstate変更　メイン画面への出力に影響】
+	   public List<User> getUsersByRole(String role) throws SQLException {
+		    List<User> list = new ArrayList<>();
+		    String sql = "SELECT ID, NAME, STATE  FROM USERS WHERE ROLE = ?";
+		    
+		    try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+		         PreparedStatement stmt = conn.prepareStatement(sql)) {
+		    	
+		        stmt.setString(1, role);
+		        ResultSet rs = stmt.executeQuery();
+		        
+		        while (rs.next()) {
+		            User u = new User();
+		            u.setId(rs.getInt("ID"));
+		            u.setName(rs.getString("NAME"));
+		            u.setState(rs.getString("STATE")); 
+		            list.add(u);
+		        }
+		    }
+		    return list;
+		}
+
+		public User getUserById(int id) throws SQLException {
+		    String sql = "SELECT ID, NAME, STATE FROM USERS WHERE ID = ?";
+		    try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+		         PreparedStatement stmt = conn.prepareStatement(sql)) {
+		        stmt.setInt(1, id);
+		        ResultSet rs = stmt.executeQuery();
+		        if (rs.next()) {
+		            User u = new User();
+		            u.setId(rs.getInt("ID"));
+		            u.setName(rs.getString("NAME"));
+		            u.setState(rs.getString("STATE"));
+		            return u;
+		        }
+		    }
+		    return null;
+		}
+
+		public boolean updateState(int userId, int newState) {
+		    try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+		         PreparedStatement ps = conn.prepareStatement("UPDATE USERS SET STATE = ? WHERE ID = ?")) {
+
+		        ps.setInt(1, newState);
+		        ps.setInt(2, userId);
+		        int rows = ps.executeUpdate();
+
+		        return rows > 0;
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return false;
+		    }
+		}		// ▲
 
 	   
 	   
