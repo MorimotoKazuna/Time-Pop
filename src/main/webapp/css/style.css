@@ -15,13 +15,14 @@ input::placeholder {
 }
 
 .main {
+	color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: auto;
     width: 300px;
     height: 300px;
-    border:1px solid #333;
+    border:10px solid rgb(255, 255, 255);
     border-radius: 10PX;
 }
 
@@ -54,29 +55,6 @@ input {
     text-align: left;
 }
 
-/* 投稿を囲む枠 */
-.mutter {
-    max-width: 60%;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    word-wrap: break-word;
-  }
-  
-  /* ログインユーザーの投稿（右側） */
-  .my-post {
-    background-color: #dfdfdf;
-    margin-left: auto;
-    text-align: right;
-  }
-  
-  /* 他ユーザーの投稿（左側） */
-  .other-post {
-    background-color: #dfdfdf;
-    margin-right: auto;
-    text-align: left;
-  }
-  
 /* Google Fonts */
 body {
     font-family: "Zen Maru Gothic", serif;
@@ -143,6 +121,15 @@ button.disabled-btn {
   background-color: #ffffff;
   color:  #FF8B20;
   border: solid #FF8B20;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.header-btn-out{
+  background-color: #b6b6b6;
+  color:  #FFF;
+  border: solid #b6b6b6;
   padding: 8px 16px;
   border-radius: 100px;
   font-weight: bold;
@@ -247,6 +234,72 @@ body {
 }
 
 /* テーブル */
+
 .member {
-    background-color: #ccc;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.member table {
+  background-color: #fff;
+  border-collapse: collapse;
+  width: 80%;
+}
+.member th {
+    letter-spacing :10px;
+}
+.member th, .member td {
+  border: 1px solid #FF8B20;
+  padding: 10px;
+  text-align: center;
+}
+
+.member button {
+  background-color: #fff;
+  color: #FF8B20;
+  border: 2px solid #FF8B20;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.member button:disabled {
+  background-color: #ccc;
+  color: #777;
+  border: 2px solid #ccc;
+  cursor: not-allowed;
+}
+
+.main-header {
+    justify-content:space-around;
+}
+.header-btn-green{
+  background-color: #41dd87;
+  color:  #FFF;
+  border: solid #41dd87;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.admin {
+    font-weight: 600;
+    text-align: center;
+    font-size: x-large;
+    color: #FF8B20;
+}
+
+.admin-btn {
+    padding: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+    margin: auto;
+}
+.logo {
+    font-size: xx-large;
 }

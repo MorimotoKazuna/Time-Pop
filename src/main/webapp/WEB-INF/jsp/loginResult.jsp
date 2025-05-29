@@ -9,6 +9,16 @@ User loginUser = (User) session.getAttribute("loginUser");
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+    body {
+      display: flex;
+      justify-content: center; /* 横中央 */
+      align-items: center;     /* 縦中央 */
+      height: 100vh;           /* 画面高さに合わせる */
+      margin: 0;               /* デフォルト余白リセット */
+      /* 他のスタイルあればここに追加 */
+    }
+  </style>
 <meta charset="UTF-8">
 <title>Time Pop</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css"> 
@@ -26,10 +36,10 @@ User loginUser = (User) session.getAttribute("loginUser");
 		<% if (loginUser != null) { %>
 			<p>ログインに成功しました</p>
 			<p>ようこそ</p>
-			<a href="Main"><input type="button" value="出退勤登録画面へ"></a>
+			<a href="Main"><input type="button" value="出退勤登録画面へ"  class="header-btn"></a>
 		<% } else {%>
 			<p>ログインに失敗しました</p>
-			<a href="index.jsp"><input type="button" value="TOPへ"></a>
+			<a href="index.jsp"><input type="button" value="TOPへ"  class="header-btn"></a>
 		<% } %>
 	</div>
 </div>

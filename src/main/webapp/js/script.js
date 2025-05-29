@@ -351,17 +351,17 @@ function showWork(userId, nameFurigana, isAlreadyClockedIn) {
              if (isAlreadyClockedIn) {
                 startBtn.disabled = true;
                 startBtn.classList.add("disabled-btn");
-                document.getElementById("messageBox").textContent = `${userId}さんは本日すでに出勤済みです。`;
+                document.getElementById("messageBox").textContent = `${nameFurigana}さんは本日すでに出勤済みです。`;
             } else {
                 startBtn.addEventListener("click", () => {
-                    document.getElementById("messageBox").textContent = `${userId}さん、おはようございます。`;
+                    document.getElementById("messageBox").textContent = `${nameFurigana}さん、おはようございます。`;
                     document.getElementById("startForm").submit(); // フォーム送信
                     setTimeout(() => location.reload(), 1000); // 1秒後に画面リロード（送信完了を待つ簡易対応）
                 });
             }
 
             endBtn.addEventListener("click", () => {
-                document.getElementById("messageBox").textContent = `${userId}さん、お疲れさまでした。`;
+                document.getElementById("messageBox").textContent = `${nameFurigana}さん、お疲れさまでした。`;
                 document.getElementById("endForm").submit(); // フォーム送信
                 setTimeout(() => location.reload(), 1000); // 同上
             });

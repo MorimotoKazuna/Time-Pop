@@ -44,26 +44,19 @@ Map<Integer, String[]> timeMap = (Map<Integer, String[]>) request.getAttribute("
 	</script>	
 </head>
 <body>
+	<header class="admin">管理者画面</header>
+	
+	<main class="admin-btn">
+    <button onclick="registerUser()" class="header-btn">利用者登録</button><br>
+    <button onclick="showStateChangeDialog()" class="header-btn-out">利用者状態変更</button><br>
+    <button class="header-btn-out">管理者登録</button><br>
+    <button class="header-btn-out">出退勤記録修正</button><br>
 
-    <button onclick="registerUser()">利用者登録</button><br>
-    <button onclick="showStateChangeDialog()">利用者状態変更</button>
-
-
+	
     <form action="Main" method="get">
-	    <button type="submit">戻る</button>
+	    <button type="submit" class="header-btn-green">戻る</button>
 	</form>
-    
+   	</main>
 
-<script>
-  const users = [
-    <% for (int i = 0; i < userList.size(); i++) {
-         User u = userList.get(i); %>
-      {
-        id: <%= u.getId() %>,
-        name: "<%= u.getNameFurigana() %>"
-      }<%= (i != userList.size() - 1) ? "," : "" %>
-    <% } %>
-  ];
-</script>
 </body>
 </html>

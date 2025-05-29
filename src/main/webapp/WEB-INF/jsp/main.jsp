@@ -30,15 +30,15 @@ Map<Integer, String[]> timeMap = (Map<Integer, String[]>) request.getAttribute("
 <script src="js/script.js" defer></script>
 </head>
 <body>
-    <header>
+    <header class="main-header">
         <div class="head-into">
-            <p>ロゴ</p>
+            <p class="logo">Time Pop</p>
 			<p>出退勤登録</p>
         </div>
         <div class="head-into">
 	        <button onclick="showMonthlyReportDialog()" class="header-btn">月報出力</button>
             <button onclick="showLogin()" class="header-btn">ログイン</button>
-            <a href="Logout"><input type="button" value="終了"></a>
+            <a href="Logout"><input type="button" value="終了" class="header-btn-out"></a>
         </div>
     </header>
     <div class="sub-area">
@@ -51,7 +51,7 @@ Map<Integer, String[]> timeMap = (Map<Integer, String[]>) request.getAttribute("
             <table>
                 <tr>
                     <th>利用者番号</th>
-                    <th>名前</th>
+                    <th>お名前</th>
                     <th>出勤時間</th>
                     <th>退勤時間</th>
                 </tr>
