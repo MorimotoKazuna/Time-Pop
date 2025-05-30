@@ -38,9 +38,32 @@ python demo.py
 ```
 
 # Note
+初回アプリケーション起動・実行前に、データベースへ下記のCREATE文2件、INSERT文1件の実行をお願いします。
 
-注意点などがあれば書く
+CREATE TABLE USERS(
+id INT PRIMARY KEY UNIQUE_ID UNIQUE (ID);,
+name VARCHAR(100) NOT NULL,
+name_furigana VARCHAR(100) DEFAULT '不明' NOT NULL
+email VARCHAR(255),
+password VARCHAR(255),
+role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'user')),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+state VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (state IN ('active', 'disable'))
+);
 
+CREATE TABLE ATTENDANCE(
+id IDENTITY PRIMARY KEY,
+user_id INT NOT NULL,
+date DATE NOT NULL,
+clock_in TIME,
+clock_out TIME,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+UNIQUE (user_id, date)
+);
+
+INSERT INTO USERS (ID, NAME, EMAIL, PASSWORD, ROLE, CREATED_AT) VALUES (0000, '管理者', 'admin@example.com', '0000', 'admin', '2025-5-22')
+※ROLE以外の値は変更頂いても問題ございませんが、初回ログイン時にデータベースへ登録したEMAILおよびPASSWORDが必要となります。
 # Author
 
 作成情報を列挙する
