@@ -24,7 +24,7 @@
 </head>
 <body>
 <div class="main">
-	<div class="main2 subtitle">
+	<div  id="current-time" class="main2 subtitle">
 		<h1>Time Pop</h1>
 		<h2>管理者ログイン</h2>
 	</div>
@@ -33,6 +33,9 @@
 			<input type="email" name="email" placeholder="メールアドレス"><br>
 			<input type="text" name="password" placeholder="パスワード"><br>
 			<input type="submit" value="ログイン" class="header-btn">
+		</form>
+		<form action="${pageContext.request.contextPath}/NewAdminPage" method="get">
+			<input type="submit" value="新規管理者登録" class="header-btn">
 		</form>
 	</div>
 </div>
