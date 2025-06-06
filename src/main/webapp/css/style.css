@@ -1,0 +1,786 @@
+@charset "UTF-8";
+
+/* 共通部分設定 */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font: #333;
+    text-align: center;
+}
+
+input::placeholder {
+    text-align: center;
+}
+
+.main {
+	color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    border:10px solid rgb(255, 255, 255);
+    border-radius: 10PX;
+}
+/*
+.main2 {
+    margin: auto;
+}
+
+.subtitle {
+    font-size: 15px;
+    padding: 30px 0 0;
+}
+*/
+input {
+    margin: 10px;
+}
+
+.toukou {
+    margin: auto 10px;
+    /* padding-left: 10px;
+    text-align: left; */
+    /* border: .5rem solid #333; 枠の大きさ見るため */
+}
+.myself {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.others {
+    padding-left: 10px;
+    text-align: left;
+}
+
+/* Google Fonts */
+body {
+    font-family: "Zen Maru Gothic", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+/* ポップアップウィンド表示 */
+body {
+font-family: sans-serif;
+}
+
+#login-button {
+cursor: pointer;
+color: blue;
+text-decoration: underline;
+position: relative;
+}
+
+#login-popup {
+display: none;
+position: absolute;
+top: 30px;
+left: 0;
+padding: 20px;
+border: 1px solid #ccc;
+background-color: white;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+width: 200px;
+border-radius: 8px;
+}
+
+#login-popup input {
+display: block;
+width: 100%;
+margin-bottom: 10px;
+padding: 5px;
+}
+
+/* 出勤ボタン押下済みの場合はグレーアウトにする */
+button.disabled-btn {
+    background-color: #ccc;
+    color: #777;
+    cursor: not-allowed;
+}
+
+/* 年月日時間の表示方法 */
+.tobig {
+    font-size: 3.0em; /* 数字を大きく */
+    font-weight: bold;
+}
+.big {
+    font-size: 1.8em; /* 数字を大きく */
+    font-weight: bold;
+}
+.small {
+    font-size: 1.0em; /* 年・月・日などの文字を小さく */
+    vertical-align: baseline;
+}
+
+/* ポップアップ時のボタン背景色の変更 　メイン画面ログインボタン */
+.header-btn{
+  background-color: #ffffff;
+  color:  #FF8B20;
+  border: solid #FF8B20;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.header-btn-out{
+  background-color: #b6b6b6;
+  color:  #FFF;
+  border: solid #b6b6b6;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.my-confirm-btn,.my-cancel-btn{
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+.my-confirm-btn{
+  background-color: #FF8B20;
+  color:  #ffffff;
+  border: solid #FF8B20;
+}
+.my-cancel-btn {
+  background-color: #747474;
+  color:  #ffffff;
+  border: solid #747474;
+}
+
+/* コンテナで囲って離れたら閉じる */
+.popup-container {
+display: inline-block;
+position: relative;
+}
+/* 現在時刻の表示 */
+#clock {
+    background-color: #222;
+    color: #fff;
+    font-size: x-large;
+    margin-bottom:10px
+}
+/* 出退勤ボタン*/
+.inbtn {
+    background-color: #FF8B20;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 80px;
+    padding: 0.5em 1em 0.5em 1.5em;      /* ボタン内の余白 */
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: x-large;
+    margin: auto 20px;
+    letter-spacing: 0.5em;
+}
+.outbtn {
+    background-color: #41dd87;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 80px;
+    padding: 0.5em 1em 0.5em 1.5em;      /* ボタン内の余白 */
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: x-large;
+    margin: auto 20px;
+    letter-spacing: 0.5em;
+}
+
+.register-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* ヘッダー */
+
+/* header .main-header{
+    height: 4.0em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+} */
+/* .head-into p {
+    width: 200PX;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #41dd87;
+    color: #FFF;
+    font-weight: bold;
+    font-size: x-large;
+} */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0  20px;
+    height: 60px;
+}
+header.main-header .page-name p {
+  font-weight: 600;
+  font-size: xx-large;
+  color: white;
+  letter-spacing: 5px;
+  text-align: center;
+}
+.head-into {
+  font-weight: 600;
+  font-size: 3rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  margin: 0;
+}
+
+body {
+    background-color: #FF8B20;
+} 
+
+.main-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 90%;
+    width: 100%;
+    background-color: #e0e0e0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+.now-date {
+    width: 250px;
+    height: auto;
+    background-color: #FF8820;
+    color: #ffffff;
+    border: solid #ffffff;
+}
+
+/* テーブル */
+
+.member {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.member table {
+  background-color: #fff;
+  border-collapse: collapse;
+  width: 80%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.member th {
+    color: #ffffff;
+    font-size: x-large;
+    letter-spacing :5px;
+    padding: 8px 2px;
+    background-color: #7c7c7c;
+    border: 1px solid #ffffff;
+}
+.member th,
+.member td {
+  border: 1px solid #c7c7c7;
+  text-align: center;
+}
+.member td {
+  font-size: large;
+  height: 5rem;
+  padding: 2px 2px;
+}
+.user-number {
+  width: 15%;
+}
+.in-time,
+.out-time {
+  width: 25%;
+}
+.button_solid004 a {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 240px;
+    padding: 10px 25px;
+    color: #FFF;
+    transition: 0.3s ease-in-out;
+    font-weight: 600;
+    background: #FF9e49;
+    border-radius: 8px;
+    border-bottom: solid 5px #c26514;
+    text-decoration: none;
+}
+.button_solid004 a:hover {
+    background-color: #FF8820; 
+    border-bottom: solid 2px #c26514;
+    transform: translateY(3px);
+}
+
+.member button {
+  background: linear-gradient(to bottom right, #FF8B20, rgb(255, 184, 119));
+  /* background-color: #fff; */
+  color: #ffffff;
+  border: 2px #FF8B20;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: large;
+  cursor: pointer;
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); */
+  width: 90%;
+  height: 100%;
+}
+
+.member button:disabled {
+  background-color: #ccc;
+  color: #777;
+  border: 2px solid #ccc;
+  cursor: not-allowed;
+}
+
+
+.header-btn-green{
+  background-color: #41dd87;
+  color:  #FFF;
+  border: solid #41dd87;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: bold;
+  margin: auto 20px;
+}
+
+.admin-btn {
+    padding: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+    margin: auto;
+}
+.logo {
+  font-weight: 600;
+  font-size: 3rem;
+}
+
+/*【index.jsp loginResult.jsp】*/
+/* パスワードの表示・非表示 */
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper input[type="password"] {
+  width: 80%;
+  padding-right: 12px; /* 👁️ 用に余白を追加 */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 10px;
+    color: #888;
+  }
+
+body.index-page,
+.login-result {
+	color: #444;
+	font-family: 'Segoe UI', sans-serif;
+	background: linear-gradient(to bottom right, #FF8B20, rgb(255, 184, 119));
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* ▼ モーダルウィンドウ発動時のレイアウト再配置防止 */
+body.index-page {
+	position: relative;
+	overflow: hidden;
+}
+
+body.swal2-shown {
+  overflow: hidden !important;
+}
+/* ▲ ここまで */
+
+.container,
+.square-container {
+  background: rgb(255, 255, 255);
+  display: flex;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* 【admin.jsp 最背景】 */
+/*  ▼　*/
+.admin-page,
+.admin-page {
+  color: #444;
+}
+.admin img,
+.main-header img {
+  width: 30px;
+  height: 30px;
+}
+header.admin {
+  margin: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  /* height: 60px; */
+}
+
+.admin .air,
+.admin form,
+.main-header {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.main-header {
+  background-color: white;
+  color: #ff8c2f;
+}
+.admin .air {
+  justify-content: flex-start;
+  color: white;
+  gap: 1rem;
+}
+
+.admin form {
+  justify-content: flex-end;
+}
+
+header.admin p.page-name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-align: center;
+  font-size: xx-large;
+  color: white;
+  margin: 0;
+}
+
+.admin-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 90%;
+    width: 100%;
+    padding: 3rem 3rem;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.panel-name {
+  font-size: x-large;
+  letter-spacing: .1rem;
+  text-align: left;
+  /*下線*/
+  border-bottom: 2px solid #ccc;
+  font-weight: bold;
+  /*左サイド縦線*/
+  border-left: 8px solid #ff8c2f;
+  padding-left: 0.5rem;
+}
+
+.user-panel,
+.admin-panel {
+  margin-top: 20px;
+  display: flex;
+  gap: 2rem; /* ボタンの間にスペースを作る */
+  flex-wrap: wrap; /* 画面幅が足りないとき折り返す */
+}
+.user-panel {
+  margin-bottom: 50px;
+}
+
+.admin-page-btn {
+  /* background: #FF8B20; */
+  background: linear-gradient(to bottom right, #FF8B20, rgb(248, 168, 94));
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  font-size: 1.3rem;
+  letter-spacing: .1rem;
+}
+
+.admin-page-btn img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5rem;
+}
+
+.admin-page-btn:hover {
+  opacity: 0.8;
+}
+/*　▲　*/
+
+/* admin-page-btn js */
+.update-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+input[type="id"],
+input[type="name"],
+input[type="name-furigana"],
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 80%;
+  text-align: left;
+}
+
+.select-user {
+  border: 2px solid #333; /* 枠線の太さ・色 */
+  padding: 10px;          /* 枠内の余白 */
+  border-radius: 6px;     /* 角の丸み */
+  background-color: #f9f9f9; /* 背景色（お好みで） */
+  display: inline-block;  /* 必要に応じて横幅をテキストサイズに */
+}
+
+.user-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.custom-reset {
+    padding: 0 20px;
+    text-align: left;
+}
+
+.state-select {
+  border: solid #c5c5c5 1px;
+  border-radius: 5px;
+}
+
+.state-label {
+  display: block;
+  justify-content: center;
+  margin-bottom: 8px; /* ラベルとセレクトの間隔 */
+}
+select #state {
+  border: solid 2px #444;
+  border-radius: 8px;
+}
+
+/*
+.admin-page {
+	font-family: 'Segoe UI', sans-serif;
+	background: linear-gradient(to bottom right, #FF8B20, rgb(255, 184, 119));
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+header h1 {
+	color: white;
+}
+
+.admin-container {
+	background: rgb(255, 0, 128);
+	color: #444;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 100vh rgba(0, 0, 0, 0.2);
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 0px;
+	height: 80%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.user-panel {
+	background: linear-gradient(to bottom right, rgb(255, 184, 119), #FF8B20);
+}
+.admin-panel {
+	font-size: 1.5rem;
+	flex: 1;
+	color: white;
+	padding: 60px 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;	
+}
+*/
+.left-panel {
+	font-size: 1.5rem;
+	flex: 1;
+	background: linear-gradient(to bottom right, rgb(255, 184, 119), #FF8B20);
+	color: white;
+	padding: 60px 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;	
+}
+.container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+	width: 800px;
+	overflow: hidden;
+}
+
+/*.container {*/
+/*}*/
+
+.square-container {
+	justify-content: center; /* 横中央 */
+	align-items: center;     /* 縦中央 */
+	height: 100vh;           /* 画面高さに合わせる */
+	margin: 0;   
+	padding-top: auto;
+	flex-direction: column;
+	width: 300px;
+	height: 300px;
+	/*background: linear-gradient(to bottom right, rgb(255, 184, 119), #FF8B20);*/
+}
+
+.left-panel {
+	font-size: 1.5rem;
+	flex: 1;
+	background: linear-gradient(to bottom right, rgb(255, 184, 119), #FF8B20);
+	color: white;
+	padding: 60px 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;	
+}
+
+.left-panel h1{
+	margin-top: 80px;
+}
+
+.h1sub{
+	margin: 5px auto auto;
+	font-size: 30px;
+	opacity: 0.8;
+}
+
+.description {
+  margin-bottom: 105px;
+  font-size: medium;
+  opacity: 0.8;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -30px;
+}
+
+.right-panel h2 {
+  margin: auto auto 40px;
+  letter-spacing: 3px;
+  font-size: 2.0rem;
+
+}
+
+.index-login {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+	display: block;
+	text-align: left;
+	margin: auto 6% -10px;
+}
+
+
+input::placeholder {
+  text-align: left;
+  color: #999;
+}
+
+.index-btn,
+.index-sndbtn,
+.into-main-btn {
+  width: 80%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.index-btn {
+  background-color: #FF8B20;
+  color: white;
+}
+
+.index-sndbtn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.into-main-btn {
+  background-color: white;
+  color: #FF8B20;
+}
+
+/* 【loginResult.jsp】*/
+.subtitle,
+.result-word,
+.result-word-sub {
+	color: #FF8B20;
+}
+
+.subtitle {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+.result-word {
+	font-size: x-large;
+	font-weight: bold;
+	opacity: 0.8;
+	margin-bottom: 30px;
+}
+
+.result-word-sub {
+	font-size: larger;
+	font-weight: bold;
+
+}
+
+
+.register-action {
+	display: flex;
+	flex-direction: column;
+	
+}
